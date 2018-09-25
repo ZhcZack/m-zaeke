@@ -1,0 +1,30 @@
+.p_style {
+  font-size: 1rem;
+  line-height: 1.75rem;
+  padding: 0 16px 1.25rem;
+  margin: 0;
+  width: 100%;
+  color: #464646;
+  letter-spacing: 0.8px;
+}
+
+.jsmargin {
+  margin-bottom: 0.3125rem;
+}
+
+.jsmargin img {
+  display: block;
+  max-width: 100%;
+  margin: 0 auto;
+  height: auto;
+}
+
+#doc-content ul {
+  padding-left: 2.5rem;
+  margin: 0 3.125rem 1.25rem 3.125rem;
+}
+
+#doc-content ul li {
+  list-style-type: disc;
+  margin: 1.25rem 0;
+}
