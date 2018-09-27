@@ -15,8 +15,8 @@
 </template>
 
 <script>
-  import ZaekeArticle from '@/components/global/zaeke-article';
-  import { vipThumbs } from '@/service/vip';
+  import ZaekeArticle  from '@/components/global/zaeke-article'
+  import { vipThumbs } from '@/service/vip'
 
   export default {
     name: 'vip-thumb',
@@ -35,44 +35,49 @@
         loadmore: false,
         nomore: false,
         none: false
-      };
+      }
     },
     created() {
-      this.getThumbs();
+      this.getThumbs()
     },
     methods: {
       getThumbs(skipnum = 0, length = 10) {
         vipThumbs(this.vipID, skipnum, length).then(result => {
-          if (result.success && result.thumbs.length > 0) {
-            let newThumbs = result.thumbs;
-            window.console.log(newThumbs);
+          if (result.success) {
+            let newThumbs = result.thumbs
             for (let thumb of newThumbs) {
-              this.thumbs.push(thumb);
+              this.thumbs.push(thumb)
             }
-            this.pages += 1;
-            if (this.thumbs.length >= this.pages * this.thumbsPerPage) {
-              this.loadmore = true;
-              this.nomore = false;
-            } else {
-              this.loadmore = false;
-              this.nomore = true;
-            }
-          } else if (this.loadmore) {
-            this.loadmore = false;
-            this.nomore = true;
+            this.pages += 1
+            this.toggleMoreNomoreNone()
           } else {
-            this.none = true;
+            this.none = true
           }
-        });
+        })
       },
       loadMore() {
         if (this.nomore) {
-          return;
+          return
         }
-        this.getThumbs(this.pages * this.thumbsPerPage, this.thumbsPerPage);
+        this.getThumbs(this.pages * this.thumbsPerPage, this.thumbsPerPage)
+      },
+      toggleMoreNomoreNone() {
+        const count = this.thumbs.length
+        if (count === 0) {
+          this.none = true
+          this.loadmore = false
+          this.nomore = false
+        } else if (count < this.pages * this.thumbsPerPage) {
+          this.none = false
+          this.loadmore = false
+          this.nomore = true
+        } else {
+          this.loadmore = true
+          this.nomore = false
+        }
       }
     }
-  };
+  }
 </script>
 
 <style scoped>

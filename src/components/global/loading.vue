@@ -1,6 +1,6 @@
 <template>
   <div id="loading">
-    <img src="http://www.zaeke.com/css/images/m_zaeke_logo.png" alt="ZAEKE知客">
+    <img src="../../assets/m_zaeke_logo.png" alt="ZAEKE知客">
   </div>
 </template>
 

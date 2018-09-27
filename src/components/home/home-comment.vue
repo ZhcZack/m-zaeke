@@ -10,8 +10,8 @@
 </template>
 
 <script>
-  import ZaekeComment from '@/components/global/zaeke-comment';
-  import { homeComments } from '@/service/home/home-comment';
+  import ZaekeComment     from '@/components/global/zaeke-comment'
+  import { homeComments } from '@/service/home/home-comment'
 
   export default {
     name: 'home-comment',
@@ -32,50 +32,50 @@
         loadmore: false,
         nomore: false,
         none: false
-      };
+      }
     },
     created() {
-      this.getComments();
+      this.getComments()
     },
     methods: {
       getComments() {
         homeComments(this.userID).then(result => {
           if (result.status && result.comments.length > 0) {
-            this.comments = result.comments;
-            this.shownComments = this.comments.slice(this.pages, this.commentsPerPage);
-            this.pages += 1;
+            this.comments = result.comments
+            this.shownComments = this.comments.slice(this.pages, this.commentsPerPage)
+            this.pages += 1
             if (this.comments.length > this.pages * this.commentsPerPage) {
-              this.loadmore = true;
-              this.nomore = false;
+              this.loadmore = true
+              this.nomore = false
             } else {
-              this.loadmore = false;
-              this.nomore = true;
+              this.loadmore = false
+              this.nomore = true
             }
           } else {
-            this.none = true;
+            this.none = true
           }
-        });
+        })
       },
       loadMore() {
         if (this.nomore) {
-          return;
+          return
         }
         let newComments = this.comments.slice(
           this.pages * this.commentsPerPage,
           (this.pages + 1) * this.commentsPerPage
-        );
+        )
         for (let comment of newComments) {
-          this.shownComments.push(comment);
+          this.shownComments.push(comment)
         }
-        this.pages += 1;
+        this.pages += 1
         if (this.shownComments.length >= this.comments.length) {
-          this.nomore = true;
-          this.loadmore = false;
+          this.nomore = true
+          this.loadmore = false
         }
       }
     },
     computed: {}
-  };
+  }
 </script>
 
 <style scoped>

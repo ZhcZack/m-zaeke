@@ -10,8 +10,8 @@
 </template>
 
 <script>
-  import ZaekeComment from '@/components/global/zaeke-comment';
-  import { vipComments } from '@/service/vip';
+  import ZaekeComment    from '@/components/global/zaeke-comment'
+  import { vipComments } from '@/service/vip'
 
   export default {
     name: 'vip-comment',
@@ -30,43 +30,49 @@
         loadmore: false,
         nomore: false,
         none: false
-      };
+      }
     },
     created() {
-      this.getComments();
+      this.getComments()
     },
     methods: {
       getComments(skipnum = 0, length = 10) {
         vipComments(this.vipID, skipnum, length).then(result => {
-          if (result.success && result.comments.length > 0) {
-            let newComments = result.comments;
+          if (result.success) {
+            let newComments = result.comments
             for (let comment of newComments) {
-              this.comments.push(comment);
+              this.comments.push(comment)
             }
-            this.pages += 1;
-            if (this.comments.length >= this.pages * this.commentsPerPage) {
-              this.loadmore = true;
-              this.nomore = false;
-            } else {
-              this.loadmore = false;
-              this.nomore = true;
-            }
-          } else if (this.loadmore) {
-            this.loadmore = false;
-            this.nomore = true;
+            this.pages += 1
+            this.toggleMoreNomoreNone()
           } else {
-            this.none = true;
+            this.none = true
           }
-        });
+        })
       },
       loadMore() {
         if (this.nomore) {
-          return;
+          return
         }
-        this.getComments(this.pages * this.commentsPerPage, this.commentsPerPage);
+        this.getComments(this.pages * this.commentsPerPage, this.commentsPerPage)
+      },
+      toggleMoreNomoreNone() {
+        const count = this.comments.length
+        if (count === 0) {
+          this.none = true
+          this.loadmore = false
+          this.nomore = false
+        } else if (count < this.pages * this.commentsPerPage) {
+          this.none = false
+          this.loadmore = false
+          this.nomore = true
+        } else {
+          this.loadmore = true
+          this.nomore = false
+        }
       }
     }
-  };
+  }
 </script>
 
 <style scoped>

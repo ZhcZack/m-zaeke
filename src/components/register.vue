@@ -2,7 +2,7 @@
   <div class="register">
     <template v-if="successMessage === ''">
       <span class="close" @click.stop="goBack"></span>
-      <img src="http://www.zaeke.com/css/images/R_icon/zaeke-logo.png" alt="logo" class="l_login">
+      <img src="../assets/zaeke-logo.png" alt="logo" class="l_login">
       <div class="clearfix">
         <span class="fl l_btn">注册</span>
         <span class="fr tips">
@@ -39,8 +39,8 @@
 </template>
 
 <script>
-  import { checkValidPhoneNumber } from '@/lib/lib';
-  import { getIdentifierCode, registerNewUser } from '@/service/register';
+  import { checkValidPhoneNumber }              from '@/lib/lib'
+  import { getIdentifierCode, registerNewUser } from '@/service/register'
 
   export default {
     name: 'register',
@@ -49,109 +49,112 @@
         username: '',
         password: '',
         phoneNumber: '',
+        // 手机验证码
         code: '',
         errorMessage: '&nbsp;',
         successMessage: '',
-        confirmCode: '',
         getCodeLock: false,
         countDown: 60,
         countDownTimer: 0
-      };
+      }
     },
     methods: {
       /**
        * 返回上一页面
        */
       goBack() {
-        this.$router.history.go(-1);
+        this.$router.history.go(-1)
       },
       /**
        * 获取验证码
        */
       getIdentifierCode() {
         if (!checkValidPhoneNumber(this.phoneNumber.trim())) {
-          this.errorMessage = '手机号码格式不正确';
-          return;
+          this.errorMessage = '手机号码格式不正确'
+          return
         }
         if (this.getCodeLock) {
-          return;
+          return
         }
-        this.getCodeLock = true;
+        this.getCodeLock = true
         getIdentifierCode(this.phoneNumber.trim()).then(result => {
           if (result.success) {
             this.countDownTimer = setInterval(() => {
-              this.countDown -= 1;
+              this.countDown -= 1
               if (this.countDown === -1) {
-                this.resetCountDown();
+                this.resetCountDown()
               }
-            }, 1000);
+            }, 1000)
           } else {
-            alert(result.message);
-            this.getCodeLock = false;
+            alert(result.message)
+            this.getCodeLock = false
           }
-        });
+        })
       },
       /**
        * 用户注册
        */
       register() {
-        let isValidInput = this.checkValidInput();
+        let isValidInput = this.checkValidInput()
         if (!isValidInput) {
-          return;
+          return
         }
         registerNewUser(this.username, this.password, this.phoneNumber, this.code).then(result => {
           if (result.success) {
-            this.successMessage = '注册成功，即将跳转至登录页面……';
+            this.successMessage = '注册成功，即将跳转至登录页面……'
             setTimeout(() => {
-              this.$router.replace('/login');
-            }, 1500);
+              this.$router.replace('/login')
+            }, 1500)
           } else {
-            this.errorMessage = result.message;
+            this.errorMessage = result.message
           }
-        });
+        })
       },
       /**
        * 检测用户输入是否符合规范
        */
       checkValidInput() {
         if (this.username.trim().length < 3 || this.username.trim().length > 15) {
-          this.errorMessage = '用户名（3-15个字符）';
-          return false;
+          this.errorMessage = '用户名（3-15个字符）'
+          return false
         }
         if (this.password.trim().length < 6 || this.password.trim().length > 20) {
-          this.errorMessage = '密码（6-20个字符）';
-          return false;
+          this.errorMessage = '密码（6-20个字符）'
+          return false
         }
         if (!checkValidPhoneNumber(this.phoneNumber)) {
-          this.errorMessage = '手机号码格式不正确';
-          return false;
+          this.errorMessage = '手机号码格式不正确'
+          return false
         }
-        if (this.code.trim() === '' || this.code.trim() !== this.confirmCode.trim()) {
-          this.errorMessage = '验证码不正确';
-          return false;
+        if (this.code.trim() === '') {
+          this.errorMessage = '验证码不正确'
+          return false
         }
-        return true;
+        return true
       },
+      /**
+       * 重置倒计时
+       */
       resetCountDown() {
-        this.countDown = 60;
-        clearInterval(this.countDownTimer);
-        this.getCodeLock = false;
+        this.countDown = 60
+        clearInterval(this.countDownTimer)
+        this.getCodeLock = false
       }
     },
     beforeRouteEnter(to, from, next) {
       next(vm => {
-        vm.$store.commit('hideHeader');
-        vm.$store.commit('hideFooter');
-        vm.$store.commit('headerSlideUp');
-      });
+        vm.$store.commit('hideHeader')
+        vm.$store.commit('hideFooter')
+        vm.$store.commit('headerSlideUp')
+      })
     },
     beforeRouteLeave(to, from, next) {
-      this.$store.commit('showHeader');
-      this.$store.commit('showFooter');
-      this.resetCountDown();
-      next();
+      this.$store.commit('showHeader')
+      this.$store.commit('showFooter')
+      this.resetCountDown()
+      next()
     }
-  };
+  }
 </script>
 
 <style scoped>
@@ -169,7 +172,7 @@
   .close {
     width: 1.25rem;
     height: 1.25rem;
-    background-image: url("http://www.zaeke.com/css/images/R_icon/close.png");
+    background-image: url(../assets/r-close.png);
     background-size: cover;
     position: absolute;
     top: 1.5rem;

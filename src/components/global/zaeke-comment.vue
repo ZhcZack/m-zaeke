@@ -77,7 +77,7 @@
        * 评论者头像
        */
       userImage() {
-        return this.member.img ? this.member.img : 'http://www.zaeke.com/css/images/morentouxiang.png';
+        return this.member.img ? this.member.img : '../../assets/morentouxiang.png';
       },
       /**
        * 返回评论者昵称。如果评论者不存在则返回自定义错误信息。

@@ -15,17 +15,17 @@
           </template>
         </template>
       </ul>
-      <div class="tc pointer loadmore" v-if="more" @click.prevent="loadmore">加载更多……</div>
+      <div class="tc pointer loadmore" v-if="loadmore" @click.prevent="loadMore">加载更多……</div>
       <div class="tc pointer nomore" v-if="nomore">没有更多了～</div>
     </template>
   </div>
 </template>
 
 <script>
-  import { index } from '@/service/index-page';
-  import ZaekeArticle from '@/components/global/zaeke-article.vue';
-  import Quicknew from '@/components/global/quicknew.vue';
-  import Loading from '@/components/global/loading';
+  import { index }    from '@/service/index-page'
+  import ZaekeArticle from '@/components/global/zaeke-article.vue'
+  import Quicknew     from '@/components/global/quicknew.vue'
+  import Loading      from '@/components/global/loading'
 
   export default {
     name: 'index-page',
@@ -34,46 +34,62 @@
       return {
         skipnum: 0,
         length: 10,
+        pages: 0,
+        articlesPerPage: 10,
         articles: [],
-        more: false,
-        nomore: false
-      };
+        loadmore: false,
+        nomore: false,
+        none: false
+      }
     },
     methods: {
-      loadmore() {
-        this.skipnum += 10;
-        index(this.skipnum).then(articles => {
+      loadMore() {
+        if (this.nomore) {
+          return
+        }
+        this.getArticles(this.pages * this.articlesPerPage, this.articlesPerPage)
+      },
+      getArticles(skipnum = 0, length = 10) {
+        index(skipnum, length).then(articles => {
           if (articles) {
-            if (articles.length < this.length) {
-              this.nomore = true;
-              this.more = false;
-            }
             for (let article of articles) {
-              this.articles.push(article);
+              this.articles.push(article)
             }
+            this.pages += 1
+            this.toggleMoreNomoreNone()
+          } else {
+            this.none = true
           }
-        });
+        })
+      },
+      toggleMoreNomoreNone() {
+        const count = this.articles.length
+        if (count === 0) {
+          this.none = true
+          this.loadmore = false
+          this.nomore = false
+        } else if (count < this.pages * this.articlesPerPage) {
+          this.none = false
+          this.loadmore = false
+          this.nomore = true
+        } else {
+          this.loadmore = true
+          this.nomore = false
+        }
       }
     },
     computed: {
       loading() {
-        return this.articles.length === 0;
+        return this.articles.length === 0
       }
     },
     beforeRouteEnter(to, from, next) {
       next(vm => {
-        vm.$store.commit('headerSlideUp');
-        index(vm.skipnum).then(articles => {
-          if (articles) {
-            vm.more = true;
-            for (let article of articles) {
-              vm.articles.push(article);
-            }
-          }
-        });
-      });
+        vm.$store.commit('headerSlideUp')
+        vm.getArticles()
+      })
     }
-  };
+  }
 </script>
 
 <style scoped>

@@ -38,11 +38,11 @@
 </template>
 
 <script>
-  import { vipDetail } from '@/service/user';
-  import VipArticle from '@/components/vip/vip-article';
-  import VipComment from '@/components/vip/vip-comment';
-  import VipThumb from '@/components/vip/vip-thumb';
-  import VipAmass from '@/components/vip/vip-amass';
+  import { vipDetail } from '@/service/user'
+  import VipArticle    from '@/components/vip/vip-article'
+  import VipComment    from '@/components/vip/vip-comment'
+  import VipThumb      from '@/components/vip/vip-thumb'
+  import VipAmass      from '@/components/vip/vip-amass'
 
   export default {
     name: 'vip',
@@ -50,6 +50,9 @@
     components: {VipArticle, VipComment, VipThumb, VipAmass},
     data() {
       return {
+        /**
+         * VIP用户的信息
+         */
         detail: {
           id: 0,
           img: '',
@@ -63,21 +66,21 @@
         commentsCheck: false,
         thumbsCheck: false,
         amassCheck: false,
-      };
+      }
     },
     methods: {
       getVipDetail(vipID) {
         vipDetail(vipID).then(result => {
           if (result.success) {
-            this.detail = result.detail;
+            this.detail = result.detail
           }
-        });
+        })
       },
       clearCheck() {
-        this.articlesCheck = false;
-        this.commentsCheck = false;
-        this.thumbsCheck = false;
-        this.amassCheck = false;
+        this.articlesCheck = false
+        this.commentsCheck = false
+        this.thumbsCheck = false
+        this.amassCheck = false
       }
     },
     computed: {
@@ -86,43 +89,43 @@
        * @returns {string}
        */
       userImage() {
-        return this.detail.img;
+        return this.detail.img
       },
       /**
        * 用户名
        * @returns {string}
        */
       username() {
-        return this.detail.nickname;
+        return this.detail.nickname
       },
       /**
        * 用户签名
        * @returns {string}
        */
       signature() {
-        return this.detail.mark;
+        return this.detail.mark
       },
       /**
        * 发表了多少篇文章
        * @returns {string}
        */
       total() {
-        return this.detail.total > 0 ? `发表${this.detail.total}篇文章` : '还没有发表文章～';
+        return this.detail.total > 0 ? `发表${this.detail.total}篇文章` : '还没有发表文章～'
       },
       coverImage() {
         return this.detail.cover ? {
           'background-image': `url(http://www.zaeke.com/${this.detail.cover})`
         } : {
           'background-image': 'url(http://www.zaeke.com/css/images/new-background-image.jpg)'
-        };
+        }
       }
     },
     beforeRouteEnter(to, from, next) {
       next(vm => {
-        vm.getVipDetail(vm.id);
-      });
+        vm.getVipDetail(vm.id)
+      })
     }
-  };
+  }
 </script>
 
 <style scoped>

@@ -14,8 +14,8 @@
 </template>
 
 <script>
-  import ZaekeArticle from '@/components/global/zaeke-article';
-  import { vipAmass } from '@/service/vip';
+  import ZaekeArticle from '@/components/global/zaeke-article'
+  import { vipAmass } from '@/service/vip'
 
   export default {
     name: 'vip-amass',
@@ -34,44 +34,49 @@
         loadmore: false,
         nomore: false,
         none: false
-      };
+      }
     },
     created() {
-      this.getAmass();
+      this.getAmass()
     },
     methods: {
       getAmass(skipnum = 0, length = 10) {
         vipAmass(this.vipID, skipnum, length).then(result => {
-          if (result.success && result.amasses.length > 0) {
-            let newAmasses = result.amasses;
-            window.console.log(newAmasses);
+          if (result.success) {
+            let newAmasses = result.amasses
             for (let amass of newAmasses) {
-              this.amasses.push(amass);
+              this.amasses.push(amass)
             }
-            this.pages += 1;
-            if (this.amasses.length >= this.pages * this.amassPerPage) {
-              this.loadmore = true;
-              this.nomore = false;
-            } else {
-              this.loadmore = false;
-              this.nomore = true;
-            }
-          } else if (this.loadmore) {
-            this.loadmore = false;
-            this.nomore = true;
+            this.pages += 1
+            this.toggleMoreNomoreNone()
           } else {
-            this.none = true;
+            this.none = true
           }
-        });
+        })
       },
       loadMore() {
         if (this.nomore) {
-          return;
+          return
         }
-        this.getAmass(this.pages * this.amassPerPage, this.amassPerPage);
+        this.getAmass(this.pages * this.amassPerPage, this.amassPerPage)
+      },
+      toggleMoreNomoreNone() {
+        const count = this.amasses.length
+        if (count === 0) {
+          this.none = true
+          this.loadmore = false
+          this.nomore = false
+        } else if (count < this.pages * this.amassPerPage) {
+          this.none = false
+          this.loadmore = false
+          this.nomore = true
+        } else {
+          this.loadmore = true
+          this.nomore = false
+        }
       }
     }
-  };
+  }
 </script>
 
 <style scoped>

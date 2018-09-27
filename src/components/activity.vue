@@ -14,8 +14,8 @@
 </template>
 
 <script>
-  import ActivityLive from '@/components/activity-live';
-  import { getActivities } from '@/service/activity';
+  import ActivityLive      from '@/components/activity-live'
+  import { getActivities } from '@/service/activity'
 
   export default {
     name: 'activity',
@@ -27,36 +27,36 @@
         length: 12,
         more: false,
         nomore: false
-      };
+      }
     },
     methods: {
       getLives(length) {
         getActivities(this.skipnum, length).then(result => {
           if (result) {
-            this.skipnum += this.length;
+            this.skipnum += this.length
             if (result.length < this.length) {
-              this.nomore = true;
-              this.more = false;
+              this.nomore = true
+              this.more = false
             } else {
-              this.more = true;
+              this.more = true
             }
             for (let item of result) {
-              this.lives.push(item);
+              this.lives.push(item)
             }
           }
-        });
+        })
       },
       loadMore() {
-        this.getLives(this.length);
+        this.getLives(this.length)
       }
     },
     beforeRouteEnter(to, from, next) {
       next(vm => {
-        vm.$store.commit('headerSlideUp');
-        vm.getLives(vm.length);
-      });
+        vm.$store.commit('headerSlideUp')
+        vm.getLives(vm.length)
+      })
     }
-  };
+  }
 </script>
 
 <style scoped>

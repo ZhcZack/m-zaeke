@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <span class="close pointer" @click.stop="goBack"></span>
-    <img src="http://www.zaeke.com/css/images/R_icon/zaeke-logo.png" alt="logo" class="l_login">
+    <img src="../assets/zaeke-logo.png" alt="logo" class="l_login">
     <div class="clearfix">
       <span class="fl l_btn">登录</span>
       <span class="fr tips">
@@ -88,7 +88,7 @@
   .close {
     width: 1.25rem;
     height: 1.25rem;
-    background-image: url("http://www.zaeke.com/css/images/R_icon/close.png");
+    background-image: url(../assets/r-close.png);
     background-size: cover;
     position: absolute;
     top: 1.5rem;

@@ -1,6 +1,6 @@
 <template>
   <footer v-if="!hidden" id="global-footer">
-    <img src="http://www.zaeke.com/css/images/m_zaeke_logo.png" alt="logo" class="logo">
+    <img src="../../assets/m_zaeke_logo.png" alt="logo" class="logo">
     <div class="slogan tc">ZAEKE | 知客、让数码更懂你</div>
     <div class="tc beian">
       <a href="http://www.miitbeian.gov.cn" target="_blank">粤ICP备14017158 &copy; ZAEKE 知客</a>

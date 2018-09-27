@@ -16,9 +16,9 @@
         loadmore: false,
         nomore: false,
         none: true
-      };
+      }
     }
-  };
+  }
 </script>
 
 <style scoped>

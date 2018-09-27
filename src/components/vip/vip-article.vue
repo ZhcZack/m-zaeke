@@ -17,9 +17,9 @@
 </template>
 
 <script>
-  import ZaekeArticle from '@/components/global/zaeke-article';
-  import Quicknew from '@/components/global/quicknew';
-  import { vipArticles } from '@/service/vip';
+  import ZaekeArticle    from '@/components/global/zaeke-article'
+  import Quicknew        from '@/components/global/quicknew'
+  import { vipArticles } from '@/service/vip'
 
   export default {
     name: 'vip-article',
@@ -38,43 +38,49 @@
         loadmore: false,
         nomore: false,
         none: false
-      };
+      }
     },
     created() {
-      this.getArticles();
+      this.getArticles()
     },
     methods: {
       getArticles(skipnum = 0, length = 10) {
         vipArticles(this.vipID, skipnum, length).then(result => {
-          if (result.success && result.articles.length > 0) {
-            let newArticles = result.articles;
+          if (result.success) {
+            let newArticles = result.articles
             for (let article of newArticles) {
-              this.articles.push(article);
+              this.articles.push(article)
             }
-            this.pages += 1;
-            if (this.articles.length >= this.pages * this.articlesPerPage) {
-              this.loadmore = true;
-              this.nomore = false;
-            } else {
-              this.loadmore = false;
-              this.nomore = true;
-            }
-          } else if (this.loadmore) {
-            this.loadmore = false;
-            this.nomore = true;
+            this.pages += 1
+            this.toggleMoreNomoreNone()
           } else {
-            this.none = true;
+            this.none = true
           }
-        });
+        })
       },
       loadMore() {
         if (this.nomore) {
-          return;
+          return
         }
-        this.getArticles(this.pages * this.articlesPerPage, this.articlesPerPage);
+        this.getArticles(this.pages * this.articlesPerPage, this.articlesPerPage)
+      },
+      toggleMoreNomoreNone() {
+        const count = this.articles.length
+        if (count === 0) {
+          this.none = true
+          this.loadmore = false
+          this.nomore = false
+        } else if (count < this.pages * this.articlesPerPage) {
+          this.none = false
+          this.loadmore = false
+          this.nomore = true
+        } else {
+          this.loadmore = true
+          this.nomore = false
+        }
       }
     }
-  };
+  }
 </script>
 
 <style scoped>

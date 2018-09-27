@@ -1,5 +1,5 @@
-import store from '@/store';
-import { log } from '@/lib/lib';
+import store                            from '@/store'
+import { formatArticleInfomation, log } from '@/lib/lib'
 
 /**
  * 得到与关键字相关的所有文章
@@ -14,14 +14,14 @@ export function articles(keyword = '', skipnum = 0, length = 10) {
     .then(json => {
       return json.code === 1 ? {
         status: true,
-        articles: json.data.article_list,
+        articles: json.data.article_list.map(article => formatArticleInfomation(article)),
         total: json.data.article_total
       } : {
         status: false,
         message: json.message
-      };
+      }
     })
-    .catch(error => log(error));
+    .catch(error => log(error))
 }
 
 /**
@@ -40,9 +40,9 @@ export function comments(keyword = '') {
       } : {
         status: false,
         message: json.message
-      };
+      }
     })
-    .catch(error => log(error));
+    .catch(error => log(error))
 }
 
 /**
@@ -62,7 +62,7 @@ export function tags(keyword = '', skipnum = 0, length = 100) {
       } : {
         status: false,
         message: json.message
-      };
+      }
     })
-    .catch(error => log(error));
+    .catch(error => log(error))
 }

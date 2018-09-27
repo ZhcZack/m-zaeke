@@ -20,53 +20,53 @@
 </template>
 
 <script>
-  import { formatTime } from '@/lib/lib';
+  import { formatTime } from '@/lib/lib'
 
   export default {
     name: 'activity-live',
     props: ['live'],
     computed: {
       isOutsideLink() {
-        return this.live.skip_url && this.skip_url !== '';
+        return this.live.skip_url && this.skip_url !== ''
       },
       articleLink() {
-        return this.live.skip_url;
+        return this.live.skip_url
       },
       title() {
-        return this.live.title;
+        return this.live.title
       },
       startTime() {
-        return formatTime(this.live.start_time * 1000);
+        return formatTime(this.live.start_time * 1000)
       },
       endTime() {
-        return formatTime(this.live.end_time * 1000);
+        return formatTime(this.live.end_time * 1000)
       },
       status() {
-        let now = new Date().getTime();
-        let result = '';
+        let now = new Date().getTime()
+        let result = ''
         if (now < this.live.start_time) {
-          result = 'preheating';
+          result = 'preheating'
         } else if (now >= this.live.start_time && now < this.live.end_time) {
-          result = 'running';
+          result = 'running'
         } else {
-          result = 'finish';
+          result = 'finish'
         }
-        return result;
+        return result
       },
       statusText() {
-        let status = this.status;
-        let text = '';
+        let status = this.status
+        let text = ''
         if (status === 'preheating') {
-          text = '预热中';
+          text = '预热中'
         } else if (status === 'running') {
-          text = '进行中';
+          text = '进行中'
         } else {
-          text = '已结束';
+          text = '已结束'
         }
-        return text;
+        return text
       }
     }
-  };
+  }
 </script>
 
 <style scoped>

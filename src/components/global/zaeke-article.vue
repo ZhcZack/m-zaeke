@@ -159,20 +159,20 @@
 
   .viewers .time {
     padding-left: 1.5rem;
-    background-image: url("http://www.zaeke.com/css/images/time.png");
+    background-image: url(../../assets/time.png);
     background-repeat: no-repeat;
   }
 
   .viewers .comment {
     padding-left: 1.25rem;
-    background-image: url("http://www.zaeke.com/css/images/pinglun2.png");
+    background-image: url(../../assets/pinglun2.png);
     background-repeat: no-repeat;
     background-position-y: 2.5px;
   }
 
   .viewers .views {
     padding-left: 1.25rem;
-    background-image: url("http://www.zaeke.com/css/images/look.png");
+    background-image: url(../../assets/look.png);
     background-repeat: no-repeat;
     background-position-y: 2.5px;
     margin-right: 1rem;
@@ -192,10 +192,10 @@
     width: 2.25rem;
     height: 2.25rem;
     background-size: cover;
-    background-image: url(http://www.zaeke.com/css/images/cool.png);
+    background-image: url(../../assets/cool.png);
   }
 
   .amass {
-    background-image: url(http://www.zaeke.com/css/images/shoucang.png);
+    background-image: url(../../assets/shoucang.png);
   }
 </style>

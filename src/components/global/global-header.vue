@@ -2,7 +2,7 @@
   <header v-if="!hidden" id="global-header">
     <div class="clearfix top">
       <router-link to="/" class="fl">
-        <img src="http://www.zaeke.com/css/images/m_zaeke_logo.png" alt="logo" class="logo">
+        <img src="../../assets/m_zaeke_logo.png" alt="logo" class="logo">
       </router-link>
       <span style="padding: 1rem; padding-right: 0;" class="fr" @click.prevent="toggleSlide"><span
           class="bread-nav fr" :class="{close: isShownNav}"></span></span>
@@ -170,7 +170,7 @@
     width: 1.125rem;
     height: 0.75rem;
     background-size: cover;
-    background-image: url(http://www.zaeke.com/css/images/menu.png);
+    background-image: url(../../assets/menu.png);
     /*margin: 1rem 0;*/
   }
 
@@ -178,7 +178,7 @@
     width: 0.75rem;
     height: 0.75rem;
     background-size: cover;
-    background-image: url("http://www.zaeke.com/css/images/close.png");
+    background-image: url(../../assets/close.png);
     position: relative;
     left: -0.1875rem;
     top: 0;
@@ -233,7 +233,7 @@
     width: 1.25rem;
     height: 1.25rem;
     margin: 0.625rem 0;
-    background-image: url(http://www.zaeke.com/css/images/m_search.png);
+    background-image: url(../../assets/m_search.png);
     background-repeat: no-repeat;
     background-size: cover;
   }

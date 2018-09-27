@@ -54,7 +54,7 @@
     font-size: 0.75rem;
     color: #a6a6a6;
     padding-left: 1.5rem;
-    background-image: url(http://www.zaeke.com/css/images/time.png);
+    background-image: url(../../assets/time.png);
     background-repeat: no-repeat;
   }
 
