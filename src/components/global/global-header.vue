@@ -30,7 +30,7 @@
               <router-link to="/">名人堂</router-link>
             </li>
             <li class="flitem tc fl">
-              <router-link to="/">知客专题</router-link>
+              <router-link to="/topic">知客专题</router-link>
             </li>
 
             <li class="flitem tc fl">
