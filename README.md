@@ -1,5 +1,7 @@
 # zaeke
 
+## 这是对[ZAEKE](http://www.zaeke.com "ZAEKE")移动端页面的“复刻”
+
 ## Project setup
 ```
 npm install
